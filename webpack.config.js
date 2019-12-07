@@ -15,7 +15,7 @@ module.exports = (env, options) => {
             globalObject: 'this',
         },
         resolve: {
-            extensions: ['.js', '.jsx']
+            extensions: ['.js', '.jsx'],
         },
         module: {
             rules: [
@@ -24,7 +24,7 @@ module.exports = (env, options) => {
                     use: ['style-loader', 'css-loader'],
                 },
                 {
-                    test: /\.(png|woff|woff2|eot|ttf|svg)$/,
+                    test: /\.(jpg|png|woff|woff2|eot|ttf|svg)$/,
                     loader: 'url-loader',
                     options: {
                         limit: 10000,
@@ -59,16 +59,16 @@ module.exports = (env, options) => {
         plugins: [
             new webpack.HotModuleReplacementPlugin(),
             new HtmlWebpackPlugin({
-                template: './src/index.html'
+                template: './src/index.html',
             }),
         ],
         devServer: {
-            historyApiFallback: true
+            historyApiFallback: true,
         },
         externals: {
             config: JSON.stringify({
-                apiUrl: 'https://restful-user-api.herokuapp.com/api/v1'
-            })
-        }
-    }
-}
+                apiUrl: 'https://restful-user-api.herokuapp.com/api/v1',
+            }),
+        },
+    };
+};

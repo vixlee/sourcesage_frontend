@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import { userActions } from '../_actions';
+import register_backgound from '../_static/register-bg.jpg';
+import logo from '../_static/logo@2x.jpg';
 
 class RegisterPage extends React.Component {
     constructor(props) {
@@ -56,7 +58,14 @@ class RegisterPage extends React.Component {
         const { registering  } = this.props;
         const { user, submitted } = this.state;
         return (
-            <div className="col-md-6 col-md-offset-3">
+            <div>
+                <div className="col-md-8">
+                    <img src={register_backgound} min-height="80%" style={{paddingTop: "10px"}}/>
+                </div>
+            
+            <div className="col-md-4">
+            <img src={logo} width='40%'/>
+                    <div style={{paddingTop: "50px"}}>
                 <h2>Register</h2>
                 <form name="form" onSubmit={this.handleSubmit}>
                     <div className={'form-group' + (submitted && !user.email ? ' has-error' : '')}>
@@ -103,6 +112,8 @@ class RegisterPage extends React.Component {
                         <Link to="/login" className="btn btn-link">Cancel</Link>
                     </div>
                 </form>
+                </div>
+            </div>
             </div>
         );
     }

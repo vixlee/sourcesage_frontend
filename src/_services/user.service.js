@@ -9,7 +9,7 @@ export const userService = {
     getAll,
     getById,
     update,
-    delete: _delete
+    delete: _delete,
 };
 
 async function login(email, password) {
@@ -18,15 +18,14 @@ async function login(email, password) {
             method: 'POST',
             url: `${config.apiUrl}/login`,
             data: JSON.stringify({ email, password }),
-            headers: { 'Content-Type': 'application/json' }
+            headers: { 'Content-Type': 'application/json' },
         });
-        console.log("Response :", response.data);
+        console.log('Response :', response.data);
         localStorage.setItem('Access-Token', response.data.access_token);
         handleResponse(response);
+    } catch (error) {
+        console.log('Error', error.message);
     }
-    catch (error) {
-        console.log("Error", error.message);
-    }    
 }
 
 function logout() {
@@ -37,7 +36,7 @@ function logout() {
 function getAll() {
     const requestOptions = {
         method: 'GET',
-        headers: authHeader()
+        headers: authHeader(),
     };
 
     return fetch(`${config.apiUrl}/users`, requestOptions).then(handleResponse);
@@ -46,10 +45,12 @@ function getAll() {
 function getById(id) {
     const requestOptions = {
         method: 'GET',
-        headers: authHeader()
+        headers: authHeader(),
     };
 
-    return fetch(`${config.apiUrl}/users/${id}`, requestOptions).then(handleResponse);
+    return fetch(`${config.apiUrl}/users/${id}`, requestOptions).then(
+        handleResponse
+    );
 }
 
 async function register(user) {
@@ -58,45 +59,38 @@ async function register(user) {
             method: 'POST',
             url: `${config.apiUrl}/sign-up`,
             data: JSON.stringify(user),
-            headers: { 'Content-Type': 'application/json' }
+            headers: { 'Content-Type': 'application/json' },
         });
         handleResponse(response);
+    } catch (error) {
+        console.log('Error', error.message);
     }
-    catch (error) {
-        console.log("Error", error.message);
-    }    
 }
-
 
 function update(user) {
     const requestOptions = {
         method: 'PUT',
         headers: { ...authHeader(), 'Content-Type': 'application/json' },
-        body: JSON.stringify(user)
+        body: JSON.stringify(user),
     };
 
-    return fetch(`${config.apiUrl}/users/${user.id}`, requestOptions).then(handleResponse);;
+    return fetch(`${config.apiUrl}/users/${user.id}`, requestOptions).then(
+        handleResponse
+    );
 }
 
 // prefixed function name with underscore because delete is a reserved word in javascript
 function _delete(id) {
     const requestOptions = {
         method: 'DELETE',
-        headers: authHeader()
+        headers: authHeader(),
     };
 
-    return fetch(`${config.apiUrl}/users/${id}`, requestOptions).then(handleResponse);
+    return fetch(`${config.apiUrl}/users/${id}`, requestOptions).then(
+        handleResponse
+    );
 }
 
 function handleResponse(response) {
-    if (response.status == 201) {
-        return "true"
-    }
-    else if (response.status == 201) {
-        return "true"
-    } 
-    else if (response.status == 401) {
-        const error = data.message || response.statusText;
-        return Promise.reject(error);
-    } 
+    console.log('In handle respone :', response);
 }
